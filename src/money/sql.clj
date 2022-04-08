@@ -149,6 +149,9 @@
   [[_ value] options]
   (to-sql value (assoc options :inline true)))
 
+(defn inline [x]
+  [:inline x])
+
 ;; TODO -- or should this be `:raw`?
 (m/defmethod to-sql [::raw :default]
   [[_ & sql-args] _options]
@@ -272,7 +275,7 @@
   [k _options]
   (let [k                (keyword (.substring (str k) 2))
         [fn-name & args] (str/split (name k) #"\.")]
-    (into [::fn-call (keyword (namespace k) fn-name)] (map keyword) args)))
+    (into [(keyword (namespace k) fn-name)] (map keyword) args)))
 
 (m/defmethod parse-keyword [\' :default]
   [k options]
@@ -323,7 +326,8 @@
   (combine-sql-args [[(name fn-name)]
                      (to-sql (parens (commas args)) options)]))
 
-;; TODO -- add `call` function
+(defn call [& args]
+  (into [::fn-call] args))
 
 (m/defmethod to-sql [::as :default]
   [[_ identifier alias] options]
