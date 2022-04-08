@@ -1,0 +1,7 @@
+((nil . ((indent-tabs-mode . nil)
+         (require-final-newline . t)))
+ (clojure-mode . ((cider-preferred-build-tool . clojure-cli)
+                  (cider-clojure-cli-aliases . "dev")
+                  (cljr-favor-prefix-notation . nil)
+                  (fill-column . 120)
+                  (clojure-docstring-fill-column . 120))))

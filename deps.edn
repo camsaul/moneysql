@@ -1,0 +1,19 @@
+{:deps
+ {methodical/methodical {:mvn/version "0.12.2"}}
+
+ :aliases
+ {:dev
+  {:extra-deps
+   {io.github.cognitect-labs/test-runner {:sha "705ad25bbf0228b1c38d0244a36001c2987d7337"}
+    pjstadig/humane-test-output          {:mvn/version "0.11.0"}}
+
+   :extra-paths
+   ["test"]
+
+   :jvm-opts
+   ["-XX:-OmitStackTraceInFastThrow"]}
+
+  ;; test all the subprojects with clojure -X:dev:test
+  :test
+  {:exec-fn   money.sql.test-runner/run-tests
+   :exec-args {:dirs ["test"]}}}}
